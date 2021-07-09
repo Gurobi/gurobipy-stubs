@@ -1773,13 +1773,6 @@ class Model:
     def setAttr(
         self,
         attrname: str,
-        arg1: Sequence[_ModelComponent],
-        arg2: str
-    ) -> None: ...
-    @overload
-    def setAttr(
-        self,
-        attrname: str,
         arg1: Mapping[Any, _ModelComponent],
         arg2: Mapping[Any, _Scalar]
     ) -> None: ...
