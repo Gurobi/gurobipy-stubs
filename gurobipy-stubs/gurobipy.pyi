@@ -19,13 +19,13 @@ from typing import (
 )
 import numpy as np
 
-_T = TypeVar('_T')
-_U = TypeVar('_U')
-_FloatOrVar = Union[float, Var]
-_LinExprLike = Union[float, Var, LinExpr]
-_QuadExprLike = Union[float, Var, LinExpr, QuadExpr]
-_Scalar = Union[int, float, str]
-_ModelComponent = Union[Var, MVar, Constr, MConstr, QConstr, SOS, GenConstr]
+T = TypeVar('T')
+U = TypeVar('U')
+FloatOrVar = Union[float, Var]
+LinExprLike = Union[float, Var, LinExpr]
+QuadExprLike = Union[float, Var, LinExpr, QuadExpr]
+Scalar = Union[int, float, str]
+ModelComponent = Union[Var, MVar, Constr, MConstr, QConstr, SOS, GenConstr]
 
 def abs_(__x: Var) -> GenExpr: ...
 @overload
@@ -35,15 +35,15 @@ def and_(__x: Sequence[Var]) -> GenExpr: ...
 @overload
 def and_(__x: tupledict[Any, Var]) -> GenExpr: ...
 @overload
-def max_(*args: _FloatOrVar) -> GenExpr: ...
+def max_(*args: FloatOrVar) -> GenExpr: ...
 @overload
-def max_(__x: Sequence[_FloatOrVar]) -> GenExpr: ...
+def max_(__x: Sequence[FloatOrVar]) -> GenExpr: ...
 @overload
 def max_(__x: tupledict[Any, Var]) -> GenExpr: ...
 @overload
-def min_(*args: _FloatOrVar) -> GenExpr: ...
+def min_(*args: FloatOrVar) -> GenExpr: ...
 @overload
-def min_(__x: Sequence[_FloatOrVar]) -> GenExpr: ...
+def min_(__x: Sequence[FloatOrVar]) -> GenExpr: ...
 @overload
 def min_(__x: tupledict[Any, Var]) -> GenExpr: ...
 @overload
@@ -61,8 +61,8 @@ def help(argument: Any = None) -> None: ...
 def models() -> None: ...
 @overload
 def multidict(
-    __data: Mapping[_T, float]
-) -> Tuple[tuplelist[_T], tupledict[_T, float]]: ...
+    __data: Mapping[T, float]
+) -> Tuple[tuplelist[T], tupledict[T, float]]: ...
 @overload
 def multidict(
     __data: Mapping[Any, Iterable[float]]
@@ -76,17 +76,17 @@ def paramHelp(paramname: Optional[str] = None) -> None: ...
 def quicksum(__x: tupledict[Any, Var]) -> LinExpr: ...
 # Cannot write concisely without overlapping signature 3
 @overload
-def quicksum(__x: Sequence[_LinExprLike]) -> LinExpr: ...  # type: ignore[misc]
+def quicksum(__x: Sequence[LinExprLike]) -> LinExpr: ...  # type: ignore[misc]
 @overload
-def quicksum(__x: Sequence[_QuadExprLike]) -> QuadExpr: ...
+def quicksum(__x: Sequence[QuadExprLike]) -> QuadExpr: ...
 # Cannot write concisely without overlapping signature 5
 @overload
 def quicksum(  # type: ignore[misc]
-    __x: Generator[_LinExprLike, None, None]
+    __x: Generator[LinExprLike, None, None]
 ) -> LinExpr: ...
 @overload
 def quicksum(
-    __x: Generator[_QuadExprLike, None, None]
+    __x: Generator[QuadExprLike, None, None]
 ) -> QuadExpr: ...
 def read(filename: str, env: Optional[Env] = None) -> Model: ...
 def readParams(__filename: str) -> None: ...
@@ -407,7 +407,7 @@ class Env:
         self,
         logfilename: str = ...,
         empty: bool = False,
-        params: Optional[Mapping[str, _Scalar]] = None
+        params: Optional[Mapping[str, Scalar]] = None
     ) -> None: ...
     @classmethod
     def ClientEnv(
@@ -1285,7 +1285,7 @@ class Model:
         self,
         binvar: Var,
         binval: bool,
-        lhs: _LinExprLike,
+        lhs: LinExprLike,
         sense: str,
         rhs: float,
         name: str = ...,
@@ -1319,7 +1319,7 @@ class Model:
     def addGenConstrMax(
         self,
         resvar: Var,
-        vars: Sequence[_FloatOrVar],
+        vars: Sequence[FloatOrVar],
         constant: Optional[float] = None,
         name: str = ...
     ) -> GenConstr: ...
@@ -1335,7 +1335,7 @@ class Model:
     def addGenConstrMin(
         self,
         resvar: Var,
-        vars: Sequence[_FloatOrVar],
+        vars: Sequence[FloatOrVar],
         constant: Optional[float] = None,
         name: str = ...
     ) -> GenConstr: ...
@@ -1408,9 +1408,9 @@ class Model:
     @overload
     def addLConstr(
         self,
-        lhs: _LinExprLike,
+        lhs: LinExprLike,
         sense: str,
-        rhs: _LinExprLike,
+        rhs: LinExprLike,
         name: str = ...
     ) -> Constr: ...
     @overload
@@ -1482,9 +1482,9 @@ class Model:
     @overload
     def addQConstr(
         self,
-        lhs: _QuadExprLike,
+        lhs: QuadExprLike,
         sense: str,
-        rhs: _QuadExprLike,
+        rhs: QuadExprLike,
         name: str = ...
     ) -> QConstr: ...
     @overload
@@ -1547,7 +1547,7 @@ class Model:
     @overload
     def addVars(
         self,
-        __indices: Iterable[_Scalar],
+        __indices: Iterable[Scalar],
         *,
         lb: Union[float, Iterable[float]] = 0.0,
         ub: Union[float, Iterable[float]] = float('inf'),
@@ -1559,7 +1559,7 @@ class Model:
     @overload
     def addVars(
         self,
-        __indices: Iterable[_Scalar],
+        __indices: Iterable[Scalar],
         *,
         lb: Union[float, Mapping[Any, float]] = 0.0,
         ub: Union[float, Mapping[Any, float]] = float('inf'),
@@ -1571,9 +1571,9 @@ class Model:
     @overload
     def addVars(
         self,
-        __indices1: Iterable[_Scalar],
-        __indices2: Iterable[_Scalar],
-        *indices: Iterable[_Scalar],
+        __indices1: Iterable[Scalar],
+        __indices2: Iterable[Scalar],
+        *indices: Iterable[Scalar],
         lb: Union[float, Mapping[Any, float]] = 0.0,
         ub: Union[float, Mapping[Any, float]] = float('inf'),
         obj: Union[float, Mapping[Any, float]] = 0.0,
@@ -1584,7 +1584,7 @@ class Model:
     @overload
     def addVars(
         self,
-        __indices: Iterable[Tuple[_Scalar, ...]],
+        __indices: Iterable[Tuple[Scalar, ...]],
         *,
         lb: Union[float, Iterable[float]] = 0.0,
         ub: Union[float, Iterable[float]] = float('inf'),
@@ -1596,7 +1596,7 @@ class Model:
     @overload
     def addVars(
         self,
-        __indices: Iterable[Tuple[_Scalar, ...]],
+        __indices: Iterable[Tuple[Scalar, ...]],
         *,
         lb: Union[float, Mapping[Any, float]] = 0.0,
         ub: Union[float, Mapping[Any, float]] = float('inf'),
@@ -1609,9 +1609,9 @@ class Model:
     @overload
     def cbCut(
         self,
-        lhs: _LinExprLike,
+        lhs: LinExprLike,
         sense: str,
-        rhs: _LinExprLike
+        rhs: LinExprLike
     ) -> None: ...
     def cbGet(self, what: int) -> Any: ...
     @overload
@@ -1619,7 +1619,7 @@ class Model:
     @overload
     def cbGetNodeRel(self, vars: Sequence[Var]) -> List[float]: ...
     @overload
-    def cbGetNodeRel(self, vars: Mapping[_T, Var]) -> tupledict[_T, float]: ...
+    def cbGetNodeRel(self, vars: Mapping[T, Var]) -> tupledict[T, float]: ...
     @overload
     def cbGetNodeRel(self, vars: MVar) -> np.ndarray: ...
     @overload
@@ -1627,8 +1627,8 @@ class Model:
     @overload
     def cbGetNodeRel(
         self,
-        vars: Mapping[_T, MVar]
-    ) -> tupledict[_T, np.ndarray]: ...
+        vars: Mapping[T, MVar]
+    ) -> tupledict[T, np.ndarray]: ...
     @overload
     def cbGetSolution(self, vars: Var) -> float: ...
     @overload
@@ -1636,8 +1636,8 @@ class Model:
     @overload
     def cbGetSolution(
         self,
-        vars: Mapping[_T, Var]
-    ) -> tupledict[_T, float]: ...
+        vars: Mapping[T, Var]
+    ) -> tupledict[T, float]: ...
     @overload
     def cbGetSolution(self, vars: MVar) -> np.ndarray: ...
     @overload
@@ -1645,16 +1645,16 @@ class Model:
     @overload
     def cbGetSolution(
         self,
-        vars: Mapping[_T, MVar]
-    ) -> tupledict[_T, np.ndarray]: ...
+        vars: Mapping[T, MVar]
+    ) -> tupledict[T, np.ndarray]: ...
     @overload
     def cbLazy(self, __tc: TempConstr) -> None: ...
     @overload
     def cbLazy(
         self,
-        lhs: _LinExprLike,
+        lhs: LinExprLike,
         sense: str,
-        rhs: _LinExprLike
+        rhs: LinExprLike
     ) -> None: ...
     @overload
     def cbSetSolution(self, vars: Var, solution: float) -> None: ...
@@ -1729,32 +1729,32 @@ class Model:
     def getAttr(
         self,
         attrname: str,
-        objs: Mapping[_T, Var]
-    ) -> Dict[_T, Any]: ...
+        objs: Mapping[T, Var]
+    ) -> Dict[T, Any]: ...
     @overload
     def getAttr(
         self,
         attrname: str,
-        objs: Mapping[_T, Constr]
-    ) -> Dict[_T, Any]: ...
+        objs: Mapping[T, Constr]
+    ) -> Dict[T, Any]: ...
     @overload
     def getAttr(
         self,
         attrname: str,
-        objs: Mapping[_T, SOS]
-    ) -> Dict[_T, Any]: ...
+        objs: Mapping[T, SOS]
+    ) -> Dict[T, Any]: ...
     @overload
     def getAttr(
         self,
         attrname: str,
-        objs: Mapping[_T, QConstr]
-    ) -> Dict[_T, Any]: ...
+        objs: Mapping[T, QConstr]
+    ) -> Dict[T, Any]: ...
     @overload
     def getAttr(
         self,
         attrname: str,
-        objs: Mapping[_T, GenConstr]
-    ) -> Dict[_T, Any]: ...
+        objs: Mapping[T, GenConstr]
+    ) -> Dict[T, Any]: ...
     def getCoeff(self, constr: Constr, var: Var) -> float: ...
     def getCol(self, var: Var) -> Column: ...
     def getConcurrentEnv(self, num: int) -> Env: ...
@@ -1860,9 +1860,9 @@ class Model:
     @overload
     def remove(self, items: GenConstr) -> None: ...
     @overload
-    def remove(self, items: Sequence[_ModelComponent]) -> None: ...
+    def remove(self, items: Sequence[ModelComponent]) -> None: ...
     @overload
-    def remove(self, items: Mapping[Any, _ModelComponent]) -> None: ...
+    def remove(self, items: Mapping[Any, ModelComponent]) -> None: ...
     def reset(self, clearall: int = 0) -> None: ...
     def resetParams(self) -> None: ...
     @overload
@@ -1873,35 +1873,35 @@ class Model:
     def setAttr(
         self,
         attrname: str,
-        arg1: Sequence[_ModelComponent],
-        arg2: Sequence[_Scalar]
+        arg1: Sequence[ModelComponent],
+        arg2: Sequence[Scalar]
     ) -> None: ...
     @overload
     def setAttr(
         self,
         attrname: str,
-        arg1: Sequence[_ModelComponent],
+        arg1: Sequence[ModelComponent],
         arg2: float
     ) -> None: ...
     @overload
     def setAttr(
         self,
         attrname: str,
-        arg1: Mapping[Any, _ModelComponent],
-        arg2: Mapping[Any, _Scalar]
+        arg1: Mapping[Any, ModelComponent],
+        arg2: Mapping[Any, Scalar]
     ) -> None: ...
     @overload
     def setAttr(
         self,
         attrname: str,
-        arg1: Mapping[Any, _ModelComponent],
+        arg1: Mapping[Any, ModelComponent],
         arg2: float
     ) -> None: ...
     @overload
     def setAttr(
         self,
         attrname: str,
-        arg1: Mapping[Any, _ModelComponent],
+        arg1: Mapping[Any, ModelComponent],
         arg2: str
     ) -> None: ...
     @overload
@@ -2681,22 +2681,22 @@ class gurobi:
     @classmethod
     def version(self) -> Tuple[int, int, int]: ...
 
-class tupledict(Dict[_T, _U]):
+class tupledict(Dict[T, U]):
     def clean(self) -> None: ...
     # expects KeysView
-    def keys(self) -> tuplelist[_T]: ...  # type: ignore[override]
+    def keys(self) -> tuplelist[T]: ...  # type: ignore[override]
     def prod(
         self,
         __d: Mapping[Any, float],
-        *args: _Scalar
+        *args: Scalar
     ) -> LinExpr: ...
-    def select(self, *args: Union[_Scalar, Sequence[_Scalar]]) -> List[_U]: ...
-    def sum(self, *args: Union[_Scalar, Sequence[_Scalar]]) -> LinExpr: ...
+    def select(self, *args: Union[Scalar, Sequence[Scalar]]) -> List[U]: ...
+    def sum(self, *args: Union[Scalar, Sequence[Scalar]]) -> LinExpr: ...
     # expects ValuesView
-    def values(self) -> List[_U]: ...  # type: ignore[override]
+    def values(self) -> List[U]: ...  # type: ignore[override]
 
-class tuplelist(List[_T]):
+class tuplelist(List[T]):
     def clean(self) -> None: ...
-    def select(self, *args: Union[_Scalar, Sequence[_Scalar]]) -> List[_T]: ...
-    def __add__(self, other: Iterable[_U]) -> tuplelist[Union[_T, _U]]: ...
-    def __iadd__(self, other: Iterable[_U]) -> tuplelist[Union[_T, _U]]: ...
+    def select(self, *args: Union[Scalar, Sequence[Scalar]]) -> List[T]: ...
+    def __add__(self, other: Iterable[U]) -> tuplelist[Union[T, U]]: ...
+    def __iadd__(self, other: Iterable[U]) -> tuplelist[Union[T, U]]: ...
