@@ -1467,10 +1467,10 @@ class Model:
     def addMVar(
         self,
         shape: int,
-        lb: Optional[Union[float, Sequence[float]]] = None,
-        ub: Optional[Union[float, Sequence[float]]] = None,
-        obj: Optional[Union[float, Sequence[float]]] = None,
-        vtype: Optional[Union[str, Sequence[str]]] = None,
+        lb: Optional[Union[float, np.ndarray]] = None,
+        ub: Optional[Union[float, np.ndarray]] = None,
+        obj: Optional[Union[float, np.ndarray]] = None,
+        vtype: Optional[Union[str, np.ndarray]] = None,
         name: Optional[Union[str, Sequence[str]]] = None
     ) -> MVar: ...
     @overload
