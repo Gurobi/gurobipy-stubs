@@ -428,27 +428,6 @@ class Env:
         empty: bool = False,
         params: Optional[Mapping[str, _Scalar]] = None
     ) -> None: ...
-    @classmethod
-    def ClientEnv(
-        cls,
-        logfilename: str,
-        computeServer: str,
-        router: str = ...,
-        password: str = ...,
-        group: str = ...,
-        CStlsInsecure: int = 0,
-        priority: int = 0,
-        timeout: float = -1,
-    ) -> Env: ...
-    @classmethod
-    def CloudEnv(
-        cls,
-        logfilename: str,
-        accessID: str,
-        secretKey: str,
-        pool: str = ...,
-        priority: int = 0
-    ) -> Env: ...
     def close(self) -> None: ...
     def dispose(self) -> None: ...
     def readParams(self, filename: str) -> None: ...
