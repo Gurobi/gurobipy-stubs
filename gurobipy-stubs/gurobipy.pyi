@@ -1371,6 +1371,14 @@ class Model:
         name: str = ...
     ) -> GenConstr: ...
     @overload
+    def addGenConstrNorm(
+        self,
+        resvar: Var,
+        vars: MVar,
+        which: float,
+        name: str = ...
+    ) -> GenConstr: ...
+    @overload
     def addGenConstrOr(
         self,
         resvar: Var,
