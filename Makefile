@@ -1,7 +1,9 @@
 PYTHON ?= python
 
 all:
-	$(PYTHON) setup.py bdist_wheel
+	# Old method, maybe useful as a fallback
+	#$(PYTHON) setup.py bdist_wheel
+	$(PYTHON) -m build
 
 clean:
 	rm -rf build
