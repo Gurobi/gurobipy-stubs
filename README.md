@@ -1,9 +1,10 @@
 # gurobipy-stubs
 
 This package provides type hints for
-[gurobipy](https://www.gurobi.com/documentation/9.1/refman/py_python_api_overview.html),
-the Python API for Gurobi.  These stubs help you to write typed Python code,
-and enhance many IDE's built-in auto completion features.
+[gurobipy](https://pypi.org/project/gurobipy/), the [Python API for
+Gurobi](https://www.gurobi.com/documentation/9.1/refman/py_python_api_overview.html).
+These stubs help you to write typed Python code, and enhance many IDE's
+built-in auto completion features.
 
 ### Example
 
@@ -21,6 +22,6 @@ vval: float = v.X
 ```
 
 ```
-% mypy examples.py 
+% mypy example.py 
 Success: no issues found in 1 source file
 ```
