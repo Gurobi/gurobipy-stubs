@@ -12,9 +12,9 @@ setuptools.setup(
     author="Gurobi Optimization, LLC",
     license="MIT",
     install_requires = [
-        'gurobipy>=9.1.0',
+        'gurobipy>=9.5.0',
         ],
-    version="0.0.1.dev1",
+    version="1.0.0.a0",
     package_data={"gurobipy-stubs": [
         'gurobipy.pyi',
         '__init__.pyi']},
