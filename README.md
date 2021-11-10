@@ -1,7 +1,5 @@
 # gurobipy-stubs
 
-![alt text](http://github.compute.gurobi.com/Gurobi/gurobipy-stubs/blob/master/data/pycharm_help.png)
-
 This package provides type hints for
 [gurobipy](https://www.gurobi.com/documentation/9.1/refman/py_python_api_overview.html),
 the Python API for Gurobi.  These stubs help you to write typed Python code,
