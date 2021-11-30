@@ -14,7 +14,7 @@ setuptools.setup(
     install_requires = [
         'gurobipy>=9.5.0',
         ],
-    version="1.0.0",
+    version="1.0.1a0",
     package_data={"gurobipy-stubs": [
         'gurobipy.pyi',
         '__init__.pyi']},
